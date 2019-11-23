@@ -21,9 +21,6 @@ def add_new_book(request):
         fs = FileSystemStorage(base_url="")
         filename = fs.save(book_img.name, book_img)
         book_img = fs.url(filename)
-
-
-
         title = request.POST.get('title')
         genre = request.POST.get('genre')
         number_of_pages = request.POST.get('number_of_pages')
@@ -40,7 +37,7 @@ def add_new_book(request):
         else:
             author = Author.objects.create(full_name=author)
             BookAuthor.objects.create(author=author, book=book)
-        return redirect('home')
+        return redirect('book-shelf')
 
     return render(request, 'book/add_new_book.html')
 
@@ -48,13 +45,26 @@ def add_new_book(request):
 @method_decorator(login_required, name='dispatch')
 class BookList(ListView):
     model = Book
-    queryset = Book.objects.all()
     paginate_by = 10
     template_name = 'book/list.html'
     context_object_name = 'books'
+
+    def get_queryset(self):
+        return Book.objects.exclude(user=self.request.user).order_by('-updated_at')
 
 
 @method_decorator(login_required, name='dispatch')
 class BookDetail(DetailView):
     model = Book
     template_name = 'book/detail.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class BookShelf(ListView):
+    model = Book
+    paginate_by = 10
+    template_name = 'book/myshelf.html'
+    context_object_name = 'books'
+
+    def get_queryset(self):
+        return Book.objects.filter(user=self.request.user).order_by('-updated_at')
