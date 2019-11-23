@@ -2,25 +2,40 @@
 {% include 'partial/base.html' %}
 <div class="container">
     {% block content %}
+        <div class="row">
+        <div class="ml-auto mr-auto text-info mt-5 mb-5 "><h3>Welcome to Pustaka {{ user }}</h3></div>
+        </div>
         {% if books %}
-            {% for book in books %}
-                <div class="row">
-                    <div class="col-sm-6">
+            <div class="row">
+                {% for book in books %}
+                    <div class="col-sm-6 mb-5">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ book.title }}</h5>
-                                <small class="text-info pb-1"> by {{ book.authors.full_name }}</small>
-                                <img src="{{ book.book_img }}" alt="{{ book.title }}" class="img-thumbnail">
+
+                                <img src="{{ book.book_img.url }}" alt="{{ book.title }}" height="250">
                                 <p class="card-text">{{ book.description|truncatewords:50 }}</p>
-                                <small class="text-info">Owner: {{ book.user }}</small> &emsp;
-                                <small class="text-info">Genre: {{ book.genre }}</small> <br>
-                                <a href="{% url 'book-detail' book.id %}" class="btn btn-primary mt-3">View Detail</a>
+                                <small class="text-info">Owner: {{ book.user }}</small> &emsp;&emsp;
+                                <small class="text-info">Genre: {{ book.genre }}</small>&emsp;
+                                <small class="text-info pb-1"> Author:
+                                    <small class="text-info pb-1">
+                                        {% if book.authors %}
+                                            {{ book.authors.full_name }}
+                                            {% for author in book.authors.all %}
+                                                {{ author.full_name }} &emsp;
+                                            {% endfor %}
+                                        {% endif %}
+                                    </small>
+                                </small>
+                                <br>
+                                <a href="{% url 'book-detail' book.id %}" class="btn btn-sm btn-outline-primary mt-3">View Detail</a>
+                                <a href="{% url 'book-detail' book.id %}" class="btn btn-sm btn-outline-success mt-3">Request</a>
                             </div>
                         </div>
                     </div>
-                </div>
-                {{ book }}
-            {% endfor %}
+
+                {% endfor %}
+            </div>
             {% if is_paginated %}
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
