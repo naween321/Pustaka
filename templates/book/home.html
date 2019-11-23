@@ -6,11 +6,13 @@
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
-<body>
-{% block content %}
+<div class="container">
+    {% block content %}
+        <a href="{% url 'add-new-book' %}" type="button" class="btn btn-success mr-3" style="color: white; float: right">Add
+            New Book</a>
 
-{% endblock %}
+    {% endblock %}
+</div>
 
 
-</body>
 </html>
