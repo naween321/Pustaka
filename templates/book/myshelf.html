@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ book.title }}</h5>
 
-                                <img src="{{ book.book_img.url }}" alt="{{ book.title }}" height="250">
+                                <img src="{{ book.book_img }}" alt="{{ book.title }}" height="250">
                                 <p class="card-text">{{ book.description|truncatewords:50 }}</p>
                                 <small class="text-info">Owner: {{ book.user }}</small> &emsp;&emsp;
                                 <small class="text-info">Genre: {{ book.genre }}</small>&emsp;
