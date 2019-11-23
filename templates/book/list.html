@@ -2,8 +2,12 @@
 {% include 'partial/base.html' %}
 <div class="container">
     {% block content %}
-        <div class="row">
-        <div class="ml-auto mr-auto text-info mt-5 mb-5 "><h3>Welcome to Pustaka {{ user }}</h3></div>
+        <div class="row  mt-5 mb-5">
+        <div class="col-sm-6 ml-auto mr-auto text-info "><h3>Welcome to Pustaka {{ user }}</h3></div>
+        <div class="col-sm-6">
+            <a class="float-right mt-2" href="{% url 'add-new-book' %}">
+                <button class="btn-sm btn btn-success"> Add New Book</button></a>
+        </div>
         </div>
         {% if books %}
             <div class="row">
