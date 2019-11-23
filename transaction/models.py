@@ -39,3 +39,9 @@ class TransactionLog(Base):
     transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, choices=STATUS, default='REQUESTED')
     exchange_with = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
+
+
+class Notification(Base):
+    transaction_log = models.ForeignKey(TransactionLog, on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
+
