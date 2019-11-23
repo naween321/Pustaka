@@ -1,0 +1,60 @@
+{#{% load static %}#}
+{#{% include 'partial/base.html' %}#}
+{#{% block content %}#}
+{#    <form method="post">#}
+{#    {% csrf_token %}#}
+{#    {{ form.as_p }}#}
+{#        <input type="submit" class="btn btn-success" value="Register">#}
+{#    </form>#}
+{#{% endblock content %}#}
+
+{% load static %}
+{% include 'partial/base.html' %}
+<div class="container pt-5">
+    <div class="row">
+        <div class="login-title ml-auto mr-auto">
+            Pustaka Login
+        </div>
+
+    </div>
+    <div class="row pt-5">
+        <div class="col-md-3">
+            <div class="login-logo text-right">
+                <img src="{% static 'logo/logo.png' %}" alt="pustaka logo" height="250">
+            </div>
+        </div>
+        <div class="col-md-5 ml-md-5 pl-md-5">
+            <div class="login-form">
+                {% block content %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder="Enter Username" value="{{ form.data.username }}">
+                            <small id="usernameHelp" class="form-text text-muted">We'll never share your username with
+                                anyone
+                                else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Password</label>
+                            <input type="password" class="form-control" id="password1" name="password1"
+                                   placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Password</label>
+                            <input type="password" class="form-control" id="password2" name="password2"
+                                   placeholder="Confirm password">
+                        </div>
+                        {% if form.errors %}
+                            <p class="text-danger">{{ form.errors.password2 }}</p>
+                            <p class="text-danger">{{ form.errors.username }}</p>
+                        {% endif %}
+                        <button type="submit" class="btn btn-success">Register</button>
+                    </form>
+                {% endblock content %}
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
