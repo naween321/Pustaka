@@ -14,7 +14,7 @@ def home(request):
     books = Book.objects.all()
     return render(request, 'book/home.html', {'books': books})
 
-
+@login_required
 def add_new_book(request):
     if request.method == 'POST':
         book_img = request.FILES['book_image']
