@@ -1,0 +1,37 @@
+{% load static %}
+{% include 'partial/base.html' %}
+<div class="container">
+    {% block content %}
+        {% if book %}
+            {{ book }}
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <small class="text-info pb-1"> by
+                        {% if book.authors %}
+                            {% for author in book.authors %}
+                                {{ author.full_name|join:", " }}
+                            {% endfor %}
+                        {% endif %}
+                    </small>
+                    <img src="{{ book.book_img }}" alt="{{ book.title }}" class="img-thumbnail">
+                    <p class="card-text">{{ book.description }}</p>
+                    <small class="text-info">Owner: {{ book.user }}</small> &emsp;
+                    <small class="text-info">Genre: {{ book.genre }}</small> <br>
+                    <div class="row">
+                        <div class="col-sm-4"><small class="text-info">Owner: {{ book.user }}</small></div>
+                        <div class="col-sm-4"><small class="text-info">Genre: {{ book.genre }}</small></div>
+                        <div class="col-sm-4"><small class="text-info">Number of pages: {{book.number_of_pages}}</small></div>
+                        <div class="col-sm-4"><small class="text-info">Status: {{book.status}}</small></div>
+                        <div class="col-sm-4"><small class="text-info">Edition: {{book.edition}}</small></div>
+                        <div class="col-sm-4"><small class="text-info">Number of pages: 1002</small></div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            No book found
+        {% endif %}
+    {% endblock content %}
+
+</div>
+
